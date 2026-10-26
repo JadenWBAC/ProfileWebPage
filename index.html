@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jaden's Desktop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Press+Start+2P&display=swap">
+<style>
+/* Layout concept: a Windows 7 Aero desktop. Frosted glass windows and taskbar,
+   with pixel-art icons, clouds and stars so the "OS" feels 8-bit. */
+:root {
+  --font-ui: "Segoe UI", "Selawik", "Open Sans", system-ui, sans-serif;
+  --font-px: "Pixelify Sans", "Trebuchet MS", system-ui, sans-serif;
+  --font-head: "Press Start 2P", "Courier New", monospace;
+  --tb: 44px;
+
+  --bg: #1b6fc2;
+  --wall: radial-gradient(ellipse at 78% 0%, rgba(255,255,255,.9), rgba(255,255,255,0) 42%),
+          radial-gradient(ellipse at 15% 105%, rgba(120,225,255,.9), rgba(120,225,255,0) 55%),
+          linear-gradient(165deg, #1565b8 0%, #2f95e0 45%, #86d4f4 100%);
+  --ray: rgba(255,255,255,.2);
+  --cloud: rgba(255,255,255,.5);
+  --star-op: 0;
+
+  --glass: rgba(188,222,250,.58);
+  --glass-off: rgba(210,230,248,.4);
+  --glass-edge: rgba(255,255,255,.7);
+  --title-fg: #0b1f33;
+  --title-glow: rgba(255,255,255,.95);
+  --cap: linear-gradient(#e8f1fa 0, #c9dcee 48%, #a9c4de 52%, #cfe3f4 100%);
+  --cap-fg: #10263c;
+
+  --win-body: #f6faff;
+  --win-fg: #0f2740;
+  --win-muted: #4b647c;
+  --win-line: #c3d6ea;
+  --accent: #1f64b4;
+  --chip: #e1eefc;
+  --seg-off: rgba(15,39,64,.09);
+
+  --task: rgba(176,214,246,.55);
+  --task-fg: #0b1f33;
+  --task-btn: rgba(255,255,255,.3);
+  --task-btn-on: rgba(255,255,255,.62);
+  --menu: rgba(214,232,250,.88);
+  --menu-r: rgba(120,170,220,.35);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #07122a;
+    --wall: radial-gradient(ellipse at 78% 0%, rgba(90,140,255,.38), rgba(90,140,255,0) 45%),
+            radial-gradient(ellipse at 15% 105%, rgba(40,150,200,.38), rgba(40,150,200,0) 55%),
+            linear-gradient(165deg, #050a1c 0%, #0b1d42 50%, #14406b 100%);
+    --ray: rgba(140,180,255,.1);
+    --cloud: rgba(130,170,230,.16);
+    --star-op: 1;
+    --glass: rgba(20,38,66,.66);
+    --glass-off: rgba(20,38,66,.46);
+    --glass-edge: rgba(150,190,255,.35);
+    --title-fg: #eaf3ff;
+    --title-glow: rgba(0,0,0,.7);
+    --cap: linear-gradient(#41597a 0, #2b4263 48%, #1d3252 52%, #35506f 100%);
+    --cap-fg: #eaf3ff;
+    --win-body: #0d1a2b;
+    --win-fg: #dbe9f8;
+    --win-muted: #8fa9c4;
+    --win-line: #24405f;
+    --accent: #7db8f7;
+    --chip: #173152;
+    --seg-off: rgba(255,255,255,.08);
+    --task: rgba(14,28,52,.72);
+    --task-fg: #eaf3ff;
+    --task-btn: rgba(255,255,255,.12);
+    --task-btn-on: rgba(255,255,255,.28);
+    --menu: rgba(18,34,60,.92);
+    --menu-r: rgba(60,110,170,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #07122a;
+  --wall: radial-gradient(ellipse at 78% 0%, rgba(90,140,255,.38), rgba(90,140,255,0) 45%),
+          radial-gradient(ellipse at 15% 105%, rgba(40,150,200,.38), rgba(40,150,200,0) 55%),
+          linear-gradient(165deg, #050a1c 0%, #0b1d42 50%, #14406b 100%);
+  --ray: rgba(140,180,255,.1);
+  --cloud: rgba(130,170,230,.16);
+  --star-op: 1;
+  --glass: rgba(20,38,66,.66);
+  --glass-off: rgba(20,38,66,.46);
+  --glass-edge: rgba(150,190,255,.35);
+  --title-fg: #eaf3ff;
+  --title-glow: rgba(0,0,0,.7);
+  --cap: linear-gradient(#41597a 0, #2b4263 48%, #1d3252 52%, #35506f 100%);
+  --cap-fg: #eaf3ff;
+  --win-body: #0d1a2b;
+  --win-fg: #dbe9f8;
+  --win-muted: #8fa9c4;
+  --win-line: #24405f;
+  --accent: #7db8f7;
+  --chip: #173152;
+  --seg-off: rgba(255,255,255,.08);
+  --task: rgba(14,28,52,.72);
+  --task-fg: #eaf3ff;
+  --task-btn: rgba(255,255,255,.12);
+  --task-btn-on: rgba(255,255,255,.28);
+  --menu: rgba(18,34,60,.92);
+  --menu-r: rgba(60,110,170,.3);
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--win-fg); overflow: hidden; }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid #ffd54a; outline-offset: 2px; }
+
+/* ---------- Desktop + wallpaper ---------- */
+.desktop {
+  position: relative; height: 100%; overflow: hidden; box-sizing: border-box;
+  background: var(--wall); font-family: var(--font-ui);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.rays {
+  position: absolute; inset: -20%; pointer-events: none; filter: blur(5px);
+  background: conic-gradient(from 195deg at 78% -12%, transparent 0 7%, var(--ray) 9% 11.5%, transparent 14% 21%, var(--ray) 23% 26%, transparent 29% 38%, var(--ray) 40% 42%, transparent 45% 100%);
+}
+.sky { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cloud { position: absolute; left: 0; top: var(--y); width: var(--w); height: auto; image-rendering: pixelated; animation: drift var(--d) linear infinite; animation-delay: var(--delay); }
+.cloud rect { fill: var(--cloud); }
+@keyframes drift { from { transform: translateX(-30vw); } to { transform: translateX(130vw); } }
+.stars { position: absolute; inset: 0; opacity: var(--star-op); }
+.stars i { position: absolute; background: #fff; }
+@media (prefers-reduced-motion: reduce) { .cloud { animation: none; transform: translateX(var(--x)); } }
+
+/* ---------- Desktop icons ---------- */
+.icons {
+  position: absolute; top: 16px; left: max(16px, env(safe-area-inset-left, 0px));
+  bottom: calc(var(--tb) + env(safe-area-inset-bottom, 0px) + 8px);
+  display: flex; flex-direction: column; flex-wrap: wrap; align-content: flex-start; gap: 6px; z-index: 1;
+}
+.icon {
+  width: 88px; padding: 8px 4px 6px; border: 1px solid transparent; border-radius: 4px;
+  background: transparent; cursor: default; display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.icon:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.35); }
+.icon[aria-pressed="true"] { background: rgba(255,255,255,.26); border-color: rgba(255,255,255,.6); }
+.icon svg { filter: drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
+.icon span { font-size: 12.5px; line-height: 1.2; color: #fff; text-align: center; text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 4px rgba(0,0,0,.85), 0 0 9px rgba(0,0,0,.6); }
+
+/* ---------- Windows (Aero glass) ---------- */
+.win {
+  position: absolute; display: flex; flex-direction: column; box-sizing: border-box; padding: 0 7px 7px;
+  border: 1px solid rgba(0,0,0,.55); border-radius: 9px; background: var(--glass-off);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5); backdrop-filter: blur(12px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px var(--glass-edge), 0 10px 28px rgba(0,0,0,.35);
+}
+.win.active { background: var(--glass); box-shadow: inset 0 0 0 1px var(--glass-edge), 0 16px 42px rgba(0,0,0,.5); }
+.win.max { left: 0 !important; top: 0 !important; width: auto !important; height: auto !important; right: 0; bottom: calc(var(--tb) + env(safe-area-inset-bottom, 0px)); border-radius: 0; }
+.win-title { display: flex; align-items: center; gap: 7px; min-height: 31px; user-select: none; -webkit-user-select: none; touch-action: none; }
+.win-ico { display: grid; }
+.win-name { flex: 1; min-width: 0; font-size: 13px; color: var(--title-fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 9px var(--title-glow), 0 0 3px var(--title-glow); }
+.caps { display: flex; align-self: flex-start; margin-right: -4px; border: 1px solid rgba(0,0,0,.55); border-top: 0; border-radius: 0 0 5px 5px; overflow: hidden; }
+.cap { width: 28px; height: 20px; padding: 0; border: 0; border-right: 1px solid rgba(0,0,0,.3); background: var(--cap); color: var(--cap-fg); display: grid; place-items: center; cursor: pointer; }
+.cap:hover { filter: brightness(1.12); }
+.cap.close { width: 44px; border-right: 0; color: #fff; background: linear-gradient(#f0a9a0 0, #d9574a 48%, #bf2f22 52%, #e9806f 100%); }
+.cap svg { display: block; }
+.win-body {
+  flex: 1; min-height: 0; overflow: auto; box-sizing: border-box; padding: 14px 16px;
+  background: var(--win-body); color: var(--win-fg); border: 1px solid rgba(0,0,0,.45); border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); font-family: var(--font-px); font-size: 17px; line-height: 1.35;
+}
+.win-body.flush { padding: 0; }
+.win-body h2 { margin: 0 0 10px; font-family: var(--font-head); font-size: 11px; line-height: 1.7; color: var(--accent); font-weight: 400; }
+.win-body h3 { margin: 16px 0 6px; font-family: var(--font-head); font-size: 9px; line-height: 1.7; color: var(--win-muted); font-weight: 400; text-transform: uppercase; letter-spacing: .06em; }
+.win-body p { margin: 0 0 10px; }
+.muted { color: var(--win-muted); }
+.chip { display: inline-block; margin: 0 4px 4px 0; padding: 0 8px; border: 1px solid var(--win-line); border-radius: 3px; background: var(--chip); font-size: 15px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid #2a5d99; border-radius: 3px; background: linear-gradient(#f6fbff, #d4e6f8 49%, #b7d2ee 51%, #d9ebfa); color: #0b2540; text-decoration: none; font: 13px var(--font-ui); cursor: pointer; }
+.btn:hover { filter: brightness(1.05); }
+
+.about { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.avatar { padding: 8px; border: 1px solid var(--win-line); border-radius: 4px; background: var(--chip); display: grid; }
+.photo { display: block; width: 88px; height: 88px; object-fit: cover; }
+.about > div:last-child { flex: 1; min-width: 180px; }
+.facts { margin: 6px 0 12px; padding: 0; list-style: none; display: grid; gap: 6px; }
+.facts li { display: grid; grid-template-columns: 92px 1fr; gap: 8px; }
+.facts b { font-weight: 600; color: var(--accent); }
+.hint { padding: 8px 10px; border: 1px dashed var(--win-line); border-radius: 4px; font-size: 15px; color: var(--win-muted); }
+
+.skill { display: grid; grid-template-columns: minmax(96px, 150px) auto 1fr; gap: 10px; align-items: center; padding: 3px 0; }
+.bar { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--win-line); background: var(--chip); border-radius: 2px; }
+.bar i { width: 15px; height: 13px; background: var(--seg-off); }
+.bar i.on { background: linear-gradient(#a8f4a8 0, #35c244 48%, #1f9a2d 52%, #63e36f 100%); }
+.lv { font-size: 15px; color: var(--win-muted); }
+
+.explorer { display: grid; grid-template-columns: 200px 1fr; height: 100%; }
+.tree { padding: 8px; border-right: 1px solid var(--win-line); display: flex; flex-direction: column; gap: 2px; overflow: auto; }
+.tree button { display: flex; gap: 8px; align-items: center; width: 100%; padding: 5px 6px; border: 1px solid transparent; border-radius: 3px; background: transparent; text-align: left; cursor: pointer; font-family: var(--font-px); font-size: 16px; }
+.tree button:hover { background: var(--chip); }
+.tree button[aria-selected="true"] { background: var(--chip); border-color: var(--win-line); }
+.detail { padding: 14px 16px; min-width: 0; overflow: auto; }
+
+.trophy { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--win-line); }
+.trophy:last-child { border-bottom: 0; }
+.trophy b { font-weight: 600; }
+.bin li { padding: 3px 0; }
+.bin ul { margin: 0; padding-left: 18px; }
+
+/* ---------- Taskbar + Start ---------- */
+.taskbar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5000; box-sizing: border-box;
+  height: calc(var(--tb) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; align-items: center; gap: 8px; background: var(--task);
+  -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6);
+  border-top: 1px solid rgba(255,255,255,.55); box-shadow: 0 -1px 0 rgba(0,0,0,.4);
+}
+.orb {
+  position: relative; flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.75); cursor: pointer;
+  background: radial-gradient(circle at 50% 30%, #d7f1ff 0, #4aa8ee 42%, #0d4f9e 100%);
+  box-shadow: 0 0 8px rgba(80,180,255,.7), inset 0 0 6px rgba(255,255,255,.8);
+  color: #fff; display: grid; place-items: center; padding: 0;
+  transition: box-shadow .25s, filter .25s;
+}
+/* glass highlight across the top half */
+.orb::after { content: ""; position: absolute; left: 5px; right: 5px; top: 2px; height: 46%; border-radius: 50%; background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.05)); pointer-events: none; }
+/* soft light bloom behind the orb, fades in on hover */
+.orb::before { content: ""; position: absolute; inset: -10px; border-radius: 50%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .25s; background: radial-gradient(circle, rgba(130,230,255,.95) 0, rgba(130,230,255,0) 68%); }
+.orb svg { position: relative; z-index: 1; display: block; filter: drop-shadow(0 1px 0 rgba(0,40,100,.9)); transition: filter .25s; }
+.orb:hover, .orb:focus-visible, .orb[aria-expanded="true"] { filter: brightness(1.12); box-shadow: 0 0 14px 3px rgba(120,220,255,.95), inset 0 0 9px rgba(255,255,255,.95); }
+.orb:hover::before, .orb:focus-visible::before, .orb[aria-expanded="true"]::before { opacity: 1; }
+.orb:hover svg, .orb:focus-visible svg, .orb[aria-expanded="true"] svg { filter: drop-shadow(0 0 3px #d9f8ff) drop-shadow(0 0 8px #5fd0ff); }
+.orb:active { filter: brightness(.92); box-shadow: inset 0 2px 7px rgba(0,30,90,.75), 0 0 8px rgba(80,180,255,.6); }
+@media (prefers-reduced-motion: reduce) { .orb, .orb::before, .orb svg { transition: none; } }
+.tasks { display: flex; gap: 6px; min-width: 0; flex: 1; overflow: hidden; }
+.task { display: flex; align-items: center; gap: 7px; flex: 0 1 170px; min-width: 38px; height: 34px; padding: 0 9px; border: 1px solid rgba(0,0,0,.35); border-radius: 4px; background: var(--task-btn); color: var(--task-fg); font: 13px var(--font-ui); cursor: pointer; }
+.task.active { background: var(--task-btn-on); box-shadow: inset 0 0 0 1px rgba(255,255,255,.5); }
+.task span { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tray { flex: none; display: flex; align-items: center; gap: 10px; color: var(--task-fg); font: 12px/1.25 var(--font-ui); text-align: center; }
+.peek { width: 12px; height: 30px; padding: 0; border: 1px solid rgba(0,0,0,.35); border-radius: 2px; background: var(--task-btn); cursor: pointer; }
+
+.start {
+  position: absolute; z-index: 4999; left: max(16px, env(safe-area-inset-left, 0px));
+  bottom: calc(var(--tb) + env(safe-area-inset-bottom, 0px) + 6px); width: min(360px, calc(100% - 32px));
+  display: grid; grid-template-columns: 1.25fr 1fr; overflow: hidden; border: 1px solid rgba(0,0,0,.55); border-radius: 9px;
+  background: var(--menu); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px var(--glass-edge), 0 18px 44px rgba(0,0,0,.5); color: var(--win-fg);
+}
+.start .apps { padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.start .apps button, .start .side button, .start .side a { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border: 1px solid transparent; border-radius: 3px; background: transparent; color: inherit; text-decoration: none; font: 14px var(--font-ui); text-align: left; cursor: pointer; }
+.start .apps button:hover, .start .side button:hover, .start .side a:hover { background: var(--chip); border-color: var(--win-line); }
+.start .side { padding: 8px; background: var(--menu-r); display: flex; flex-direction: column; gap: 2px; border-left: 1px solid var(--win-line); }
+.start .who { padding: 6px 8px 10px; font: 11px/1.6 var(--font-head); color: var(--accent); }
+
+.balloon { position: absolute; z-index: 4000; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(var(--tb) + env(safe-area-inset-bottom, 0px) + 10px); max-width: 270px; padding: 10px 12px; border: 1px solid rgba(0,0,0,.5); border-radius: 6px; background: var(--win-body); color: var(--win-fg); font: 13px/1.4 var(--font-ui); box-shadow: 0 8px 22px rgba(0,0,0,.4); cursor: pointer; }
+.balloon b { display: block; margin-bottom: 2px; }
+.off { position: absolute; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 24px; box-sizing: border-box; background: #000; color: #9bd1ff; font: 12px/2.2 var(--font-head); text-align: center; cursor: pointer; }
+
+/* ---------- Phones: windows fill the desktop, no dragging ---------- */
+@media (max-width: 640px) {
+  .win { left: 8px !important; top: 8px !important; width: auto !important; height: auto !important; right: 8px; bottom: calc(var(--tb) + env(safe-area-inset-bottom, 0px) + 8px); }
+  .win-title { touch-action: auto; }
+  .cap[data-act="max"] { display: none; }
+  .task span { display: none; }
+  .task { flex: 0 0 38px; justify-content: center; padding: 0; }
+  .explorer { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .tree { border-right: 0; border-bottom: 1px solid var(--win-line); flex-direction: row; flex-wrap: wrap; }
+  .tree button { width: auto; }
+  .skill { grid-template-columns: 1fr auto; }
+  .skill .lv { grid-column: 1 / -1; margin-top: -2px; }
+  .facts li { grid-template-columns: 1fr; gap: 0; }
+  .start { grid-template-columns: 1fr; }
+  .start .side { border-left: 0; border-top: 1px solid var(--win-line); }
+  .icon { width: 76px; }
+}
+</style>
+
+<div class="desktop" id="desktop">
+  <div class="rays" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true"><div class="stars" id="stars"></div><div id="clouds"></div></div>
+  <nav class="icons" id="icons" aria-label="Desktop"></nav>
+  <div id="stage"></div>
+
+  <div class="start" id="start" hidden role="menu" aria-label="Start menu">
+    <div class="apps" id="start-apps"></div>
+    <div class="side">
+      <div class="who">JADEN</div>
+      <a href="https://github.com/JadenWBAC" target="_blank" rel="noopener">GitHub profile</a>
+      <button type="button" id="shutdown">Shut down</button>
+    </div>
+  </div>
+
+  <div class="balloon" id="balloon" hidden role="status">
+    <b>Welcome to Jaden's desktop</b>
+    Double-click an icon to open it. On a phone, just tap.
+  </div>
+
+  <div class="taskbar" id="taskbar">
+    <button class="orb" id="orb" type="button" aria-label="Start menu" aria-expanded="false" aria-controls="start">J</button>
+    <div class="tasks" id="tasks"></div>
+    <div class="tray">
+      <div><div id="clock">--:--</div><div id="date" class="muted" style="color:inherit;opacity:.8">--</div></div>
+      <button class="peek" id="peek" type="button" aria-label="Show desktop" title="Show desktop"></button>
+    </div>
+  </div>
+
+  <div class="off" id="off" hidden role="button" tabindex="0">
+    <div>It is now safe to<br>turn off Jaden's computer.<br><br><span style="opacity:.7">Click anywhere to power on</span></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============ Pixel art: each icon is a 12x12 grid of letters ============ */
+  const PALETTE = { k:"#18283a", w:"#ffffff", b:"#3b86d8", l:"#8fc4f5", y:"#f5c542", o:"#e8892b",
+                    r:"#d0453b", g:"#4caf50", p:"#f2c9a0", n:"#7a4b2a", e:"#b5c0cc", d:"#5d6b7a" };
+  const ICONS = {
+    about: [
+      "............",
+      "...kkkkkk...",
+      "..knnnnnnk..",
+      ".knnppppnnk.",
+      ".kpkkppkkpk.",
+      ".kppppppppk.",
+      ".kpkppppkpk.",
+      ".kppkkkkppk.",
+      "..kppppppk..",
+      "...kkkkkk...",
+      "............",
+      "............"
+    ],
+    skills: [
+      "............",
+      "............",
+      ".kkkkkkkkkk.",
+      "keeeeeeeeeek",
+      "keekeeeegeek",
+      "kekkkeeyerek",
+      "keekeeeebeek",
+      "keeeeeeeeeek",
+      ".keekkkkeek.",
+      "..kkk..kkk..",
+      "............",
+      "............"
+    ],
+    projects: [
+      "............",
+      ".kkkk.......",
+      "kyyyykkkkkk.",
+      "kywwyyyyyyyk",
+      "kyyyyyyyyyyk",
+      "kyyyyyyyyyyk",
+      "kyyyyyyyyyyk",
+      "kyyyyyyyyyyk",
+      "kyyyyyyyyyyk",
+      "kooooooooook",
+      "kkkkkkkkkkkk",
+      "............"
+    ],
+    certs: [
+      "............",
+      "..kkkkkkkk..",
+      "kkkyywyyykkk",
+      "kykyywyyykyk",
+      "kykyyyyyykyk",
+      "kkkyyyyyykkk",
+      "..kkyyyykk..",
+      "....kyyk....",
+      "....kyyk....",
+      "...kkkkkk...",
+      "..kooooook..",
+      "..kkkkkkkk.."
+    ],
+    contact: [
+      "............",
+      "............",
+      "kkkkkkkkkkkk",
+      "kwwwwwwwwwwk",
+      "kkwwwwwwwwkk",
+      "kwkwwwwwwkwk",
+      "kwwkwwwwkwwk",
+      "kwwwkkkkwwwk",
+      "kwwwwwwwwwwk",
+      "kkkkkkkkkkkk",
+      "............",
+      "............"
+    ],
+    bin: [
+      "............",
+      "....kkkk....",
+      ".kkkkkkkkkk.",
+      "..keeeeeek..",
+      "..kekeekeek.",
+      "..kekeekeek.",
+      "..kekeekeek.",
+      "..kekeekeek.",
+      "..kekeekeek.",
+      "..keeeeeek..",
+      "...kkkkkk...",
+      "............"
+    ]
+  };
+  const CLOUD = [
+    "........cccccc........",
+    "......cccccccccc......",
+    "..cccccccccccccccc....",
+    ".cccccccccccccccccccc.",
+    "cccccccccccccccccccccc",
+    ".cccccccccccccccccccc.",
+    "..cccccccccccccccc...."
+  ];
+
+  function gridToSvg(rows, size, fillFor, cls) {
+    const h = rows.length, w = rows[0].length;
+    let rects = "";
+    rows.forEach(function (row, y) {
+      let x = 0;
+      while (x < row.length) {
+        const ch = row[x];
+        if (ch === ".") { x++; continue; }
+        let run = 1;
+        while (x + run < row.length && row[x + run] === ch) run++;
+        const fill = fillFor(ch);
+        rects += '<rect x="' + x + '" y="' + y + '" width="' + run + '" height="1"' + (fill ? ' fill="' + fill + '"' : "") + "/>";
+        x += run;
+      }
+    });
+    return '<svg viewBox="0 0 ' + w + " " + h + '" width="' + (size * w / h) + '" height="' + size + '" shape-rendering="crispEdges"' + (cls ? ' class="' + cls + '"' : "") + ' aria-hidden="true">' + rects + "</svg>";
+  }
+  function sprite(name, size) { return gridToSvg(ICONS[name], size, function (c) { return PALETTE[c]; }); }
+
+  /* ============ Content ============ */
+  const LEVELS = ["", "Just started", "Learning", "Comfortable", "Strong", "Expert"];
+  const SKILLS = [
+    { group: "Languages", items: [["Java", 4], ["JavaScript", 3], ["HTML & CSS", 3], ["Kotlin", 2]] },
+    { group: "Building things", items: [["Spring Boot", 2], ["JSP & Servlets", 2], ["Android (MVVM + Room)", 3], ["React Native & Supabase", 2], ["PostgreSQL", 2]] },
+    { group: "Tools and systems", items: [["Git & GitHub", 3], ["Linux", 2], ["Networking (CCNA intro)", 3]] }
+  ];
+  const PROJECTS = [
+    { name: "Project Voltron", tag: "3rd place, FNB hackathon",
+      text: "A banking app idea built to tackle financial exclusion and financial illiteracy, with an AI assistant, gamified learning and personalised recommendations. I was one of two project managers on a team of five.",
+      stack: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"], url: "https://github.com/K-Serumola/ProjectVoltron" },
+    { name: "Rideshare App", tag: "In progress, team of four",
+      text: "A ride-sharing app built on a simple idea: if you are already heading somewhere, you tell the app, and people going the same way can ride along for a fee, with no waiting for a driver to reroute. I'm one of the two programmers. We are building on a friend's LoetoLink codebase, used with their permission.",
+      stack: ["React Native", "Expo", "Supabase"], url: "" },
+    { name: "LIBIS", tag: "CSE303 course project",
+      text: "A Library Information Management System for my Advanced Web Development with Java course, built a little more each week. Members sign up and log in, a filter guards every page, and the catalogue has a real search. It follows an MVC layout with servlet controllers and JSP views.",
+      stack: ["Java", "Jakarta EE", "Servlets", "JSP & JSTL", "Tomcat"], url: "" },
+    { name: "NexaCare", tag: "Cavista Hackathon",
+      text: "A voice-enabled smart EMR and diagnosis assistant. I worked on the back-end.",
+      stack: ["Java", "Spring Boot", "JPA", "PostgreSQL"], url: "https://github.com/ErykahDaman/NexaCare" },
+    { name: "RoomieHub", tag: "Android app",
+      text: "An Android app built with MVVM and Room, with its own set of screens and components for landlords.",
+      stack: ["Kotlin", "Android Studio", "MVVM", "Room"], url: "https://github.com/JadenWBAC/RoomieHub" },
+    { name: "Year 2 OOAD Project", tag: "Coursework",
+      text: "My Year 2 Object-Oriented Analysis and Development project.",
+      stack: ["Java", "Maven"], url: "https://github.com/JadenWBAC/Year-2-OOAD-Project" }
+  ];
+  /* TODO: add LinkedIn or an email link in the Contact window when you are ready to share them publicly. */
+
+  /* Optional photo for the About window. Put your picture next to index.html
+     (for example "me.jpg") and set PHOTO = "me.jpg". Leave it empty to show the pixel face. */
+  const PHOTO = "";
+
+  const APPS = {
+    about: { title: "About Me", label: "About Me", icon: "about", w: 470, h: 440, render: function () {
+      return '<div class="about"><div class="avatar">' + (PHOTO ? '<img class="photo" src="' + PHOTO + '" alt="Photo of Jaden" width="88" height="88">' : sprite("about", 88)) + '</div><div>' +
+        "<h2>Hi, I'm Jaden</h2>" +
+        "<p>A Computer Systems Engineering student in Gaborone, Botswana. I build Java back-ends and Android apps, and I'm still learning. That's the fun part.</p></div></div>" +
+        "<h3>Quick facts</h3>" +
+        '<ul class="facts">' +
+        "<li><b>Studying</b><span>Year 3 at Botswana Accountancy College</span></li>" +
+        "<li><b>Strongest</b><span>Java</span></li>" +
+        "<li><b>Building</b><span>Android apps, a ride-sharing app and a library system for class</span></li>" +
+        "<li><b>Placed</b><span>3rd at an FNB-sponsored hackathon</span></li>" +
+        "</ul>" +
+        '<p class="hint">Tip: double-click the icons on the desktop (tap on a phone) to see my skills, projects and certificates.</p>';
+    } },
+    skills: { title: "Skills.exe", label: "Skills", icon: "skills", w: 500, h: 520, render: function () {
+      let html = '<h2>Skill levels</h2><p class="muted">The bars show how comfortable I am, not how many years I have used something.</p>';
+      SKILLS.forEach(function (g) {
+        html += "<h3>" + g.group + "</h3>";
+        g.items.forEach(function (it) {
+          let segs = "";
+          for (let i = 1; i <= 5; i++) segs += '<i class="' + (i <= it[1] ? "on" : "") + '"></i>';
+          html += '<div class="skill"><span>' + it[0] + '</span><span class="bar" role="img" aria-label="' + it[1] + ' out of 5">' + segs + '</span><span class="lv">' + LEVELS[it[1]] + "</span></div>";
+        });
+      });
+      return html;
+    } },
+    projects: { title: "Projects", label: "Projects", icon: "projects", w: 680, h: 440, flush: true, render: function () {
+      let tree = "";
+      PROJECTS.forEach(function (p, i) {
+        tree += '<button type="button" role="tab" data-i="' + i + '" aria-selected="' + (i === 0) + '">' + sprite("projects", 18) + "<span>" + p.name + "</span></button>";
+      });
+      return '<div class="explorer"><div class="tree" role="tablist" aria-label="Projects">' + tree + '</div><div class="detail" role="tabpanel"></div></div>';
+    }, mount: function (body) {
+      const detail = body.querySelector(".detail");
+      function show(i) {
+        const p = PROJECTS[i];
+        detail.innerHTML = "<h2>" + p.name + '</h2><p class="muted">' + p.tag + "</p><p>" + p.text + "</p><p>" +
+          p.stack.map(function (s) { return '<span class="chip">' + s + "</span>"; }).join("") + "</p>" +
+          (p.url ? '<a class="btn" href="' + p.url + '" target="_blank" rel="noopener">Open on GitHub</a>' : '<span class="muted">Code not public yet.</span>');
+        body.querySelectorAll(".tree button").forEach(function (b) { b.setAttribute("aria-selected", String(+b.dataset.i === i)); });
+      }
+      body.querySelector(".tree").addEventListener("click", function (e) {
+        const b = e.target.closest("button"); if (b) show(+b.dataset.i);
+      });
+      show(0);
+    } },
+    certs: { title: "Achievements", label: "Certificates", icon: "certs", w: 500, h: 400, render: function () {
+      function row(t, a, b) { return '<div class="trophy">' + sprite("certs", 36) + "<div><b>" + t + '</b><div class="muted">' + a + "</div>" + (b ? '<div class="muted">' + b + "</div>" : "") + "</div></div>"; }
+      return "<h2>Achievements unlocked</h2>" +
+        row("CCNA: Introduction to Networks", "Cisco Networking Academy", "Issued Jul 2026") +
+        row("Linux Essentials", "Cisco Networking Academy", "Issued Jun 2026") +
+        row("3rd place, FNB-sponsored hackathon", "With Project Voltron", "");
+    } },
+    contact: { title: "Contact", label: "Contact", icon: "contact", w: 400, h: 290, render: function () {
+      return "<h2>Say hi</h2><p>I'm based in Gaborone, Botswana. The best place to see what I'm working on is my GitHub.</p>" +
+        '<p><a class="btn" href="https://github.com/JadenWBAC" target="_blank" rel="noopener">github.com/JadenWBAC</a></p>';
+    } },
+    bin: { title: "Recycle Bin", label: "Recycle Bin", icon: "bin", w: 420, h: 330, render: function () {
+      return '<div class="bin"><h2>3 items</h2><ul>' +
+        "<li>missing_semicolon.java</li><li>final_FINAL_v3_really.java</li><li>my_motivation.txt <span class=\"muted\">(restored)</span></li>" +
+        '</ul><p class="muted" style="margin-top:12px">Every programmer has one of these.</p></div>';
+    } }
+  };
+  const ORDER = ["about", "skills", "projects", "certs", "contact", "bin"];
+
+  /* ============ Wallpaper details ============ */
+  (function sky() {
+    const clouds = document.getElementById("clouds");
+    [[8, 190, 150, -20], [34, 120, 210, -90], [58, 150, 180, -140]].forEach(function (c, i) {
+      const wrap = document.createElement("div");
+      wrap.innerHTML = gridToSvg(CLOUD, 1, function () { return ""; }, "cloud").replace(/width="[^"]*" height="[^"]*"/, "");
+      const svg = wrap.firstChild;
+      svg.style.setProperty("--y", c[0] + "%");
+      svg.style.setProperty("--w", c[1] + "px");
+      svg.style.setProperty("--d", c[2] + "s");
+      svg.style.setProperty("--delay", c[3] + "s");
+      svg.style.setProperty("--x", (12 + i * 30) + "vw");
+      clouds.appendChild(svg);
+    });
+    const stars = document.getElementById("stars");
+    let seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (let i = 0; i < 46; i++) {
+      const s = document.createElement("i"), size = rnd() < .8 ? 2 : 3;
+      s.style.left = (rnd() * 100) + "%"; s.style.top = (rnd() * 70) + "%";
+      s.style.width = s.style.height = size + "px"; s.style.opacity = (.35 + rnd() * .65).toFixed(2);
+      stars.appendChild(s);
+    }
+  })();
+
+  /* ============ Window manager ============ */
+  const desktop = document.getElementById("desktop");
+  const stage = document.getElementById("stage");
+  const tasks = document.getElementById("tasks");
+  const iconsEl = document.getElementById("icons");
+  const startEl = document.getElementById("start");
+  const orb = document.getElementById("orb");
+  /* The pixel J on the Start orb: 7 wide, 8 tall, drawn at 3px per pixel */
+  orb.innerHTML = gridToSvg([
+    "..wwwww",
+    "....ww.",
+    "....ww.",
+    "....ww.",
+    "....ww.",
+    "w...ww.",
+    "wwwwww.",
+    ".wwww.."
+  ], 24, function () { return "#ffffff"; });
+  const wins = new Map();
+  let zTop = 10, activeId = null;
+  const isPhone = function () { return window.matchMedia("(max-width: 640px)").matches; };
+  const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
+  const CAP = {
+    min: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="7" width="8" height="2" fill="currentColor"/></svg>',
+    max: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+    close: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>'
+  };
+
+  function focusWin(id) {
+    const w = wins.get(id); if (!w) return;
+    w.el.hidden = false;
+    w.el.style.zIndex = ++zTop; activeId = id;
+    wins.forEach(function (o, k) { o.el.classList.toggle("active", k === id); o.btn.classList.toggle("active", k === id && !o.el.hidden); });
+  }
+  function minimize(id) {
+    const w = wins.get(id); if (!w) return;
+    w.el.hidden = true; w.btn.classList.remove("active");
+    if (activeId === id) { activeId = null; focusTopmost(); }
+  }
+  function focusTopmost() {
+    let best = null, bz = -1;
+    wins.forEach(function (o, k) { if (!o.el.hidden && +o.el.style.zIndex > bz) { bz = +o.el.style.zIndex; best = k; } });
+    if (best) focusWin(best);
+  }
+  function closeWin(id) {
+    const w = wins.get(id); if (!w) return;
+    w.el.remove(); w.btn.remove(); wins.delete(id);
+    if (activeId === id) { activeId = null; focusTopmost(); }
+  }
+  function toggleMax(id) {
+    const w = wins.get(id); if (!w || isPhone()) return;
+    w.el.classList.toggle("max");
+  }
+
+  function openApp(id) {
+    closeStart();
+    if (wins.has(id)) { focusWin(id); return; }
+    const app = APPS[id];
+    const el = document.createElement("section");
+    el.className = "win"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", app.title);
+    el.innerHTML =
+      '<header class="win-title"><span class="win-ico">' + sprite(app.icon, 18) + '</span><span class="win-name">' + app.title + "</span>" +
+      '<span class="caps"><button class="cap" type="button" data-act="min" aria-label="Minimize">' + CAP.min + "</button>" +
+      '<button class="cap" type="button" data-act="max" aria-label="Maximize">' + CAP.max + "</button>" +
+      '<button class="cap close" type="button" data-act="close" aria-label="Close">' + CAP.close + "</button></span></header>" +
+      '<div class="win-body' + (app.flush ? " flush" : "") + '">' + app.render() + "</div>";
+    stage.appendChild(el);
+    if (app.mount) app.mount(el.querySelector(".win-body"));
+
+    const dw = desktop.clientWidth, dh = desktop.clientHeight - 44;
+    const width = Math.min(app.w, dw - 24), height = Math.min(app.h, dh - 24), n = wins.size;
+    el.style.width = width + "px"; el.style.height = height + "px";
+    el.style.left = Math.max(12, Math.min(120 + n * 30, dw - width - 12)) + "px";
+    el.style.top = Math.max(12, Math.min(28 + n * 30, dh - height - 12)) + "px";
+
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.className = "task";
+    btn.innerHTML = sprite(app.icon, 20) + "<span>" + app.label + "</span>"; btn.setAttribute("aria-label", app.label);
+    btn.addEventListener("click", function () {
+      const w = wins.get(id);
+      if (w.el.hidden) focusWin(id); else if (activeId === id) minimize(id); else focusWin(id);
+    });
+    tasks.appendChild(btn);
+    wins.set(id, { el: el, btn: btn });
+
+    el.addEventListener("pointerdown", function () { focusWin(id); });
+    el.querySelector(".caps").addEventListener("click", function (e) {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.act === "close") closeWin(id); else if (b.dataset.act === "min") minimize(id); else toggleMax(id);
+    });
+    const bar = el.querySelector(".win-title");
+    bar.addEventListener("dblclick", function (e) { if (!e.target.closest(".caps")) toggleMax(id); });
+    bar.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".caps") || isPhone() || el.classList.contains("max") || e.button > 0) return;
+      const dr = desktop.getBoundingClientRect(), r = el.getBoundingClientRect();
+      const ox = e.clientX - r.left, oy = e.clientY - r.top;
+      bar.setPointerCapture(e.pointerId);
+      function move(ev) {
+        const x = Math.min(Math.max(ev.clientX - dr.left - ox, -r.width + 90), dr.width - 90);
+        const y = Math.min(Math.max(ev.clientY - dr.top - oy, 0), dr.height - 44 - 31);
+        el.style.left = x + "px"; el.style.top = y + "px";
+      }
+      function up() { bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", up); bar.removeEventListener("pointercancel", up); }
+      bar.addEventListener("pointermove", move); bar.addEventListener("pointerup", up); bar.addEventListener("pointercancel", up);
+    });
+    focusWin(id);
+  }
+
+  /* ============ Icons, Start menu, clock ============ */
+  ORDER.forEach(function (id) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "icon"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = sprite(APPS[id].icon, 48) + "<span>" + APPS[id].label + "</span>";
+    b.addEventListener("click", function () {
+      iconsEl.querySelectorAll(".icon").forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+      if (isTouch) openApp(id);
+    });
+    b.addEventListener("dblclick", function () { openApp(id); });
+    b.addEventListener("keydown", function (e) { if (e.key === "Enter") openApp(id); });
+    iconsEl.appendChild(b);
+
+    const m = document.createElement("button");
+    m.type = "button"; m.setAttribute("role", "menuitem");
+    m.innerHTML = sprite(APPS[id].icon, 24) + "<span>" + APPS[id].label + "</span>";
+    m.addEventListener("click", function () { openApp(id); });
+    document.getElementById("start-apps").appendChild(m);
+  });
+
+  function closeStart() { startEl.hidden = true; orb.setAttribute("aria-expanded", "false"); }
+  orb.addEventListener("click", function () {
+    const open = startEl.hidden; startEl.hidden = !open; orb.setAttribute("aria-expanded", String(open));
+    document.getElementById("balloon").hidden = true;
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (!startEl.hidden && !e.target.closest("#start") && !e.target.closest("#orb")) closeStart();
+    if (!e.target.closest(".icon")) iconsEl.querySelectorAll(".icon").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (!startEl.hidden) closeStart(); else if (activeId) closeWin(activeId);
+  });
+  document.getElementById("peek").addEventListener("click", function () { Array.from(wins.keys()).forEach(minimize); });
+
+  const off = document.getElementById("off");
+  document.getElementById("shutdown").addEventListener("click", function () {
+    closeStart(); Array.from(wins.keys()).forEach(closeWin); off.hidden = false; off.focus();
+  });
+  function powerOn() { off.hidden = true; openApp("about"); }
+  off.addEventListener("click", powerOn);
+  off.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") powerOn(); });
+
+  function tick() {
+    const d = new Date();
+    document.getElementById("clock").textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    document.getElementById("date").textContent = d.toLocaleDateString([], { day: "numeric", month: "short", year: "numeric" });
+  }
+  tick(); setInterval(tick, 20000);
+
+  /* ============ Boot ============ */
+  openApp("about");
+  const balloon = document.getElementById("balloon");
+  setTimeout(function () { balloon.hidden = false; }, 900);
+  setTimeout(function () { balloon.hidden = true; }, 10000);
+  balloon.addEventListener("click", function () { balloon.hidden = true; });
+})();
+</script>
+
+</html>
